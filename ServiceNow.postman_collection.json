@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "94e2674c-d31c-40e7-944b-91f15a0b2bb0",
+		"name": "ServiceNow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Incidents",
+			"item": [
+				{
+					"name": "Get all Incidents from ServiceNow",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Tuna@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dev87854.service-now.com/api/now/v2/table/incident?sysparm_fields=number, incident_state&category=software&sysparm_limit=2",
+							"protocol": "https",
+							"host": [
+								"dev87854",
+								"service-now",
+								"com"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"incident"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number, incident_state"
+								},
+								{
+									"key": "category",
+									"value": "software"
+								},
+								{
+									"key": "sysparm_limit",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Fetch all of them "
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Incidents from ServiceNow (XML)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Tuna@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://dev87854.service-now.com/api/now/v2/table/incident?sysparm_fields=number, incident_state&category=software&sysparm_limit=2",
+							"protocol": "https",
+							"host": [
+								"dev87854",
+								"service-now",
+								"com"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"incident"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number, incident_state"
+								},
+								{
+									"key": "category",
+									"value": "software"
+								},
+								{
+									"key": "sysparm_limit",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Fetch all of them "
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new Incident",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Tuna@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"short_description\" : \"Created by PostMan again\",\n\t\"category\" : \"software\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev87854.service-now.com/api/now/v2/table/incident?sysparm_fields=number,sys_id&type=emergency",
+							"protocol": "https",
+							"host": [
+								"dev87854",
+								"service-now",
+								"com"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"incident"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number,sys_id"
+								},
+								{
+									"key": "type",
+									"value": "emergency"
+								}
+							]
+						},
+						"description": "Create a new incident -> Short Description"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete existing Incident",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Tuna@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://dev87854.service-now.com/api/now/v2/table/incident/9890e06edbb900108e3d5fc74b961985",
+							"protocol": "https",
+							"host": [
+								"dev87854",
+								"service-now",
+								"com"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"incident",
+								"9890e06edbb900108e3d5fc74b961985"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new Incident XML",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Tuna@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<request>\n\t<entry>\n\t\t<short_description>\"This is automated\"</short_description>\n\t</entry>\n</request>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev87854.service-now.com/api/now/v2/table/incident?sysparm_fields=number,sys_id&type=emergency",
+							"protocol": "https",
+							"host": [
+								"dev87854",
+								"service-now",
+								"com"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"incident"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number,sys_id"
+								},
+								{
+									"key": "type",
+									"value": "emergency"
+								}
+							]
+						},
+						"description": "Create a new incident -> Short Description"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Incident",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Tuna@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"short_description\" : \"Updated by PostMan\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev87854.service-now.com/api/now/v2/table/incident/c331a42edbb900108e3d5fc74b9619d0",
+							"protocol": "https",
+							"host": [
+								"dev87854",
+								"service-now",
+								"com"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"incident",
+								"c331a42edbb900108e3d5fc74b9619d0"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Change Requests",
+			"item": [
+				{
+					"name": "Get all Change Requests",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Tuna@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://dev87854.service-now.com/api/now/v2/table/change_request?sysparm_fields=number,sys_id,type&type=emergency",
+							"protocol": "https",
+							"host": [
+								"dev87854",
+								"service-now",
+								"com"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"change_request"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number,sys_id,type"
+								},
+								{
+									"key": "type",
+									"value": "emergency"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
