@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "1a18bbf8-097b-4025-a6f5-5d29ee549b3e",
+		"name": "ServiceNow Integration (Chaining)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Incidents",
+			"item": [
+				{
+					"name": "Get all Incidents from ServiceNow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4881bd1e-7101-4d3c-93ee-30388cbee169",
+								"exec": [
+									"var response = pm.response.json();",
+									"console.log(response);",
+									"",
+									"var count = response.result.length;",
+									"console.log(count);",
+									"",
+									"// Find one of the incident sys_id",
+									"console.log(response.result[count-1].sys_id);",
+									"pm.globals.set(\"sys_id_1\", response.result[count-1].sys_id);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{server}}/{{resources}}/table/{{table}}?sysparm_fields=number, incident_state, sys_id",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{resources}}",
+								"table",
+								"{{table}}"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number, incident_state, sys_id"
+								},
+								{
+									"key": "category",
+									"value": "software",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Fetch all of them "
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new Incident",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6044aa03-de55-401a-a4a6-0810e9f16657",
+								"exec": [
+									"var response = pm.response.json();",
+									"console.log(response);",
+									"",
+									"console.log(\"The sys id is \"+response.result.sys_id);",
+									"",
+									"pm.globals.set(\"sys_id\", response.result.sys_id);",
+									"",
+									"pm.test(\"Successful or not\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    Console.log(pm.response.header);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"short_description\" : \"Created by PostMan again\",\n\t\"category\" : \"software\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{server}}/{{resources}}/table/{{table}}?sysparm_fields=number,sys_id&type=emergency",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{resources}}",
+								"table",
+								"{{table}}"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number,sys_id"
+								},
+								{
+									"key": "type",
+									"value": "emergency"
+								}
+							]
+						},
+						"description": "Create a new incident -> Short Description"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete existing Incident",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{server}}/{{resources}}/table/{{table}}/{{sys_id}}",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{resources}}",
+								"table",
+								"{{table}}",
+								"{{sys_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Incident",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"short_description\" : \"Updated by PostMan\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{server}}/{{resources}}/table/{{table}}/{{sys_id_1}}",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{resources}}",
+								"table",
+								"{{table}}",
+								"{{sys_id_1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "Tuna@123",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ee82afdc-8908-4405-8437-750b6a3a870f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ff447fb7-af68-4c09-b103-65448c126474",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "1ab48bae-cfa7-4d30-85f9-216b1f889205",
+			"key": "table",
+			"value": "incident",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
